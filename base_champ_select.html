@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>League of Legends Champions</title>
+</head>
+<body>
+    <h1>League of Legends Champions</h1>
+    <div id="championImages">
+        
+    </div>
+    <div id="championData">
+
+    </div>
+    <script>
+        const championData = [
+
+        ];
+
+        const championImagesDiv = document.getElementById('championImages');
+        const championDataDiv = document.getElementById('championData');
+
+        function displayChampionData(championInfo) {
+            championDataDic.innerHTML = `
+                <h2>${championInfo.name}</h2>
+                <p>Ally Tips: ${championInfo.allytips.join(',')}</p>
+                <p>Enemy Tips: ${championInfo.enemytips.join(',')}</p>
+                <p>Tags: ${championInfo.tags.join(',')}</p>
+                <img src="${championInfo.image_full}" alt = "${championInfo.name}">
+                `;
+        }
+
+        championData.forEach(champion => {
+            const img = document.createElement('img');
+            img.src = champion.image_full;
+            img.alt = champion.name;
+            img.onclick = () => displayChampionData(champion);
+            championImagesDiv.appendChild(img);
+        });
+    </script>
+</body>
+</html>
