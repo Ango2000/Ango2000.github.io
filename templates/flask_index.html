@@ -1,0 +1,165 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>League of Legends Draft Simulation</title>
+</head>
+<body>
+    <h1>League of Legends Champions</h1>
+    <div id="championImages">
+        
+    </div>
+    <div id="championData">
+
+    </div>
+    <script>
+        fetch('/champion-data')
+            .then(response => response.json())
+            .then(championData => {
+                const championImagesDiv = document.getElementById('championImages');
+                const championDataDiv = document.getElementById('championData');
+            
+                championData.forEach(champion => {
+                    const img = document.createElement('img');
+                    img.src = champion.image_full;
+                    img.alt = champion.name;
+                    img.onclick = () => displayChampionData(champion);
+                    championImagesDiv.appendChild(img);
+                });
+            
+        
+        
+
+
+
+        function displayChampionData(championInfo) {
+            championDataDiv.innerHTML = `
+                <h2>${championInfo.name}</h2>
+                <p>Ally Tips: ${championInfo.allytips.join(',')}</p>
+                <p>Enemy Tips: ${championInfo.enemytips.join(',')}</p>
+                <p>Tags: ${championInfo.tags.join(',')}</p>
+                <img src="${championInfo.image_full}" alt = "${championInfo.name}">
+                `;
+            }
+        })
+        .catch(error => console.error('Error fetching champion data:', error));
+        // championData.forEach(champion => {
+        //     const img = document.createElement('img');
+        //     img.src = champion.image_full;
+        //     img.alt = champion.name;
+        //     img.onclick = () => displayChampionData(champion);
+        //     championImagesDiv.appendChild(img);
+        // });
+    </script>
+</body>
+</html> -->
+<!-- second version -->
+<!--  -->
+<!--  -->
+<!--  -->
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOL Draft Simulation</title>
+</head>
+<body>
+    <h1>League of Legends Champions</h1>
+    <div id="championImages">
+        
+    </div>
+    <div id="championData">
+
+    </div>
+    <script>
+        fetch ('/champion/<champion_name>')
+            .then(response => response.json())
+            .then(championData => {
+                const championImagesDiv = document.getElementById('championImages');
+                const championDataDiv = document.getElementById('championData');
+                championData.forEach(champion => {
+                    const img = document.createElement('img');
+                    img.src = champion.image_full;
+                    img.alt = champion.name;
+                    img.onclick = () => displayChampionData(champion);
+                    championImagesDiv.appendChild(img);
+            });
+            function displayChampionData(championInfo) {
+                championDataDiv.innerHTML = `
+                    <h2>${championInfo.name}</h2>
+                    <p>Ally Tips: ${championInfo.allytips.join(',')}</p>
+                    <p>Enemy Tips: ${championInfo.enemytips.join(',')}</p>
+                    <p>Tags: ${championInfo.tags.join(',')}</p>
+                    <img src="${championInfo.image_full}" alt = "${championInfo.name}">
+                `;
+            }
+            
+
+        });
+            
+        
+        
+
+
+
+
+        
+
+        // championData.forEach(champion => {
+        //     const img = document.createElement('img');
+        //     img.src = champion.image_full;
+        //     img.alt = champion.name;
+        //     img.onclick = () => displayChampionData(champion);
+        //     championImagesDiv.appendChild(img);
+        // });
+    </script>
+</body>
+</html> -->
+
+
+<!-- third version -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>League of Legends Draft Simulation</title>
+</head>
+<body>
+    <h1>League of Legends Champions</h1>
+    <div>
+        <select id="championSelect" onchange="getSelectedChampion()">
+            <option value="" selected disabled> Select a Champion</option>
+            {%for champion in champion_data_list %}
+                <option value="{{ champion.name }}">{{ champion.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div id="championData">
+
+    </div>
+    <script>
+        function getSelectedChampion() {
+            const selectedChampionName = document.getElementById('championSelect').value;
+
+            fetch(`/champion/${selectedChampionName}`)
+                .then(response => response.json())
+                .then(championInfo => {
+                    const championDataDiv = document.getElementById('championData');
+                    championDataDiv.innerHTML = `
+                        <h2>${championInfo.name}</h2>
+                        <p>Ally Tips: ${championInfo.allytips.join(',')}</p>
+                        <p>Enemy Tips: ${championInfo.enemytips.join(',')}</p>
+                        <p>Tags: ${championInfo.tags.join(',')}</p>
+                        <img src="${championInfo.image_full}" alt="${championInfo.name}">
+                    `;
+                })
+                .catch(error => console.error('Error fetching champion:', error));
+        }
+    </script>
+</body>
+</html>

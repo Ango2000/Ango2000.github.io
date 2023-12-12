@@ -42,7 +42,23 @@ def latest_champ_data():
     return champion_list
 # latest_champ_data()
 
-
+# def extract_first_id(champion_data):
+#     base_url = "https://ddragon.leagueoflegends.com/cdn/13.24.1/data/en_US/champion/"
+#     first_ids = []
+#     for champ in champion_lists:
+#         champion_url = f"{base_url}{champ}.json"
+#         response = requests.get(champion_url)
+#         if response.status_code == 200:
+#             data = response.json()
+#             first_champion_key = list(data['data'].keys())[0]
+#             first_champion_data = data['data'][first_champion_key]
+#             first_champion_id = first_champion_data['id']
+#             first_ids.append(first_champion_id)
+#         else:
+#             first_ids.append(None)
+#     return first_ids
+#     first_id = next(iter(champion_data['id'].values()))
+#     return first_id
 
 def full_champ_data(champion_list):
     base_url = "https://ddragon.leagueoflegends.com/cdn/13.24.1/data/en_US/champion/"
@@ -60,6 +76,8 @@ def full_champ_data(champion_list):
             stores individual champ json data in champion_data
             """
             champion_data = response.json()
+            # temp_champ_data = champion_data[champ]
+            # first_id = temp_champ_data["data"]["id"]
             if champ in champion_data["data"]:
                 """
                 iterates through each individual champion json file and pulls specific data
@@ -67,6 +85,7 @@ def full_champ_data(champion_list):
                 """
                 temp_champ_data = champion_data["data"][champ]
                 champion_info = {
+                    "id": temp_champ_data["id"],
                     "name": temp_champ_data["name"],
                     "allytips": temp_champ_data.get("allytips", []),
                     "enemytips": temp_champ_data.get("enemytips", []),
@@ -87,6 +106,8 @@ def show_champ_data(champion_data_list):
         """
         prints champion data in a formatted way for each champion
         """
+        
+        print("ID:", champion_info["id"])
         print("Champion Name:", champion_info["name"])
         print("Ally Tips:", champion_info["allytips"])
         print("Enemy Tips:", champion_info["enemytips"])
