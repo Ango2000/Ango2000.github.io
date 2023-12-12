@@ -36,7 +36,7 @@ app = Flask(__name__)
 def index():
     champion_list = latest_champ_data()
     champion_data_list = full_champ_data(champion_list)
-    return render_template('base_champ_select.html', champion_data_list=champion_data_list)
+    return render_template('index.html', champion_data_list=champion_data_list)
 
 @app.route('/champion/<champion_name>')
 def get_champion(champion_name):
