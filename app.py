@@ -42,7 +42,7 @@ def index():
 def get_champion(champion_name):
     champion_list = latest_champ_data()
     champion_data_list = full_champ_data(champion_list)
-    champion_info = next ((champion for champion in champion_data_list if champion['name'] == champion_name), None)
+    champion_info = next ((champion for champion in champion_data_list if champion['id'] == champion_name), None)
     if champion_info:
         return jsonify(champion_info)
     else:

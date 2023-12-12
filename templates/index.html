@@ -146,7 +146,7 @@
         function getSelectedChampion() {
             const selectedChampionName = document.getElementById('championSelect').value;
 
-            fetch('/champion/${selectedChampionName}')
+            fetch(`/champion/${selectedChampionName}`)
                 .then(response => response.json())
                 .then(championInfo => {
                     const championDataDiv = document.getElementById('championData');
