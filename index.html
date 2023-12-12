@@ -122,7 +122,7 @@
 
 <!-- third version -->
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -161,5 +161,82 @@
                 .catch(error => console.error('Error fetching champion:', error));
         }
     </script>
+</body>
+</html> -->
+
+<!-- Original vision of using a drop down menu to dynamically show the data of the selected champion -->
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>League of Legends Draft Simulation</title>
+</head>
+<body>
+    <h1>League of Legends Champions</h1>
+    <div>
+        <select id="championSelect">
+            <option value="" selected disabled> Select a Champion</option>
+        </select>
+    </div>
+    <div id="championData">
+
+    </div>
+    <script>
+        fetch(`/champion/${selectedChampionName}`)
+            .then(response => response.json())
+            .then(championInfo => {
+                const select = document.getElementById('championSelect');
+                championNames.forEach(name => {
+                    const option = document.createElement('option');
+                    option.value = name;
+                    select.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error fetching champion name', error));
+        document.getElementById('championSelect').addEventListener('change', function() {
+            const selectedChampionName = this.value;
+
+            fetch(`/champion/${selectedChampionName}`)
+                .then(response => response.json())
+                .then(championInfo => {
+                    const championDataDiv = document.getElementById('championData');
+                    championDataDiv.innerHTML = `
+                    <h2>${championInfo.name}</h2>
+                    <p>Ally Tips: ${championInfo.allytips.join(',')}</p>
+                    <p>Enemy Tips: ${championInfo.enemytips.join(',')}</p>
+                    <p>Tags: ${championInfo.tags.join(',')}</p>
+                    <img src="${championInfo.image_full}" alt="${championInfo.name}">
+                `;
+            })
+            .catch(error => console.error('Error fetching champion:', error));
+        });
+    </script>
+</body>
+</html> -->
+
+
+<!-- Final version to be used in the static version of the github webpages -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>League of Legends Draft Simulation</title>
+</head>
+<body>
+    <h1>League of Legends Champions</h1>
+    <div id="championData">
+        {% for champion in champion_data_list %}
+            </div>
+                <h2>${championInfo.name}</h2>
+                <p>Ally Tips: ${championInfo.allytips.join(',')}</p>
+                <p>Enemy Tips: ${championInfo.enemytips.join(',')}</p>
+                <p>Tags: ${championInfo.tags.join(',')}</p>
+                <img src="${championInfo.image_full}" alt="${championInfo.name}">
+            </div>
+        {% endfor %}
+    </div>
 </body>
 </html>
